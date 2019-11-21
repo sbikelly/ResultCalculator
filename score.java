@@ -1,0 +1,3661 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package resultcalculator;
+
+/**
+ *
+ * @author AD0KW3
+ */
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.GrayColor;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import javax.swing.JFileChooser;
+import java.awt.Dimension;
+import java.io.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import javax.swing.*;
+import java.sql.*;
+import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Vector;
+import net.proteanit.sql.DbUtils;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.TableRowAlign;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableCell;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBody;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTDocument1;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPageSz;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTSectPr;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.STPageOrientation;
+import static resultcalculator.MainCal.ce;
+import static resultcalculator.MainCal.cred;
+import static resultcalculator.MainCal.dept;
+import static resultcalculator.MainCal.gp;
+import static resultcalculator.MainCal.gpa;
+import static resultcalculator.MainCal.grade;
+import static resultcalculator.MainCal.lev;
+import static resultcalculator.MainCal.printHead;
+import static resultcalculator.MainCal.printSess;
+import static resultcalculator.MainCal.remark;
+import static resultcalculator.MainCal.tGp;
+import static resultcalculator.MainCal.tce;
+import static resultcalculator.MainCal.tcr;
+import static resultcalculator.MainCal.printType;
+import static resultcalculator.MainCal.header1;
+import static resultcalculator.MainCal.header2;
+import static resultcalculator.MainCal.header3;
+import static resultcalculator.MainCal.header4;
+import static resultcalculator.MainCal.header5;
+import static resultcalculator.MainCal.cCount;
+import static resultcalculator.MainCal.ce;
+import static resultcalculator.MainCal.chooser;
+import static resultcalculator.MainCal.course;
+import static resultcalculator.MainCal.cred;
+import static resultcalculator.MainCal.d;
+import static resultcalculator.MainCal.dept;
+import static resultcalculator.MainCal.gp;
+import static resultcalculator.MainCal.grade;
+import static resultcalculator.MainCal.headers;
+import static resultcalculator.MainCal.level1GP;
+import static resultcalculator.MainCal.level2GP;
+import static resultcalculator.MainCal.level3GP;
+import static resultcalculator.MainCal.level4GP;
+import static resultcalculator.MainCal.model;
+import static resultcalculator.MainCal.nbf;
+import static resultcalculator.MainCal.rCount;
+import static resultcalculator.MainCal.remark;
+import static resultcalculator.MainCal.result;
+import static resultcalculator.MainCal.round;
+import static resultcalculator.MainCal.school;
+import static resultcalculator.MainCal.semester;
+import static resultcalculator.MainCal.session;
+import static resultcalculator.MainCal.tGp;
+import static resultcalculator.MainCal.tableHeight;
+import static resultcalculator.MainCal.tableWidth;
+import static resultcalculator.MainCal.tce;
+import static resultcalculator.MainCal.tcr;
+import static resultcalculator.MainCal.vectordata;
+import static resultcalculator.MainCal.lecturer;
+
+
+public class score extends javax.swing.JFrame {
+
+	Connection conn=null;
+	PreparedStatement pst=null;
+	ResultSet rs=null;
+	/**
+	 * Creates new form score
+	 */
+	public score() {
+		initComponents();
+		conn=db.dbcon();
+		fillCourse();
+		sessionNow();
+	}
+
+	/**
+	 * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
+	 */
+	@SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        dialog1 = new javax.swing.JFrame();
+        addStudentBar = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        txtNewStudentMatric1 = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        txtNewStudentName1 = new javax.swing.JTextField();
+        jLabel42 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        newStudentDeptCombo1 = new javax.swing.JComboBox<>();
+        addStudentLevelCombo1 = new javax.swing.JComboBox<>();
+        jLabel20 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        dialogTable = new javax.swing.JTable();
+        panel = new javax.swing.JPanel();
+        tablePane = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        resultTable = new javax.swing.JTable();
+        panel1 = new javax.swing.JPanel();
+        sideBar = new javax.swing.JLayeredPane();
+        scoreBar = new javax.swing.JPanel();
+        btnUpdate = new javax.swing.JButton();
+        btnsave = new javax.swing.JButton();
+        txtexam = new javax.swing.JTextField();
+        txtca = new javax.swing.JTextField();
+        jLabel45 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        jButton10 = new javax.swing.JButton();
+        lblName = new javax.swing.JLabel();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel44 = new javax.swing.JLabel();
+        scoreCourse = new javax.swing.JComboBox<>();
+        lblScoreMsg1 = new javax.swing.JLabel();
+        txtmat = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        hiddenTable = new javax.swing.JTable();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+
+        dialog1.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        dialog1.setAlwaysOnTop(true);
+        dialog1.setMinimumSize(new java.awt.Dimension(665, 515));
+        dialog1.setResizable(false);
+
+        addStudentBar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102)), "Add Students", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 36), new java.awt.Color(0, 51, 102))); // NOI18N
+        addStudentBar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                addStudentBarMouseMoved(evt);
+            }
+        });
+
+        jLabel17.setText("Matric(e.g 1234)");
+
+        jLabel41.setText("Name (e.g Isa Olu Chukwu)");
+
+        jLabel42.setText("Department");
+
+        jButton7.setText("Add");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        addStudentLevelCombo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        addStudentLevelCombo1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                addStudentLevelCombo1ItemStateChanged(evt);
+            }
+        });
+
+        jLabel20.setText("Level");
+
+        javax.swing.GroupLayout addStudentBarLayout = new javax.swing.GroupLayout(addStudentBar);
+        addStudentBar.setLayout(addStudentBarLayout);
+        addStudentBarLayout.setHorizontalGroup(
+            addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addStudentBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(newStudentDeptCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNewStudentMatric1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17))
+                .addGap(22, 22, 22)
+                .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNewStudentName1))
+                .addGap(27, 27, 27)
+                .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addComponent(addStudentLevelCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        addStudentBarLayout.setVerticalGroup(
+            addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addStudentBarLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(jLabel41)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNewStudentName1))
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addStudentLevelCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(addStudentBarLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addGroup(addStudentBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(addStudentBarLayout.createSequentialGroup()
+                                .addComponent(jLabel42)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(newStudentDeptCombo1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(addStudentBarLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(34, 34, 34))
+                            .addComponent(txtNewStudentMatric1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(22, 22, 22))
+        );
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 102, 102)));
+
+        dialogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(dialogTable);
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 627, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(16, Short.MAX_VALUE)))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 298, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGap(10, 10, 10)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout dialog1Layout = new javax.swing.GroupLayout(dialog1.getContentPane());
+        dialog1.getContentPane().setLayout(dialog1Layout);
+        dialog1Layout.setHorizontalGroup(
+            dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialog1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addStudentBar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+        dialog1Layout.setVerticalGroup(
+            dialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dialog1Layout.createSequentialGroup()
+                .addComponent(addStudentBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102)));
+
+        tablePane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        resultTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        resultTable.setAutoscrolls(false);
+        resultTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        resultTable.setRowHeight(25);
+        resultTable.setRowMargin(10);
+        jScrollPane4.setViewportView(resultTable);
+
+        tablePane.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 12, 735, 530));
+
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        scoreBar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 102)), "Score Entry", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 36), new java.awt.Color(0, 51, 102))); // NOI18N
+        scoreBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+        scoreBar.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 80, -1));
+
+        btnsave.setText("Save");
+        btnsave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsaveActionPerformed(evt);
+            }
+        });
+        scoreBar.add(btnsave, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 390, 85, -1));
+
+        txtexam.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtexamKeyTyped(evt);
+            }
+        });
+        scoreBar.add(txtexam, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 343, 80, 29));
+
+        txtca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtcaKeyTyped(evt);
+            }
+        });
+        scoreBar.add(txtca, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 343, 85, 29));
+
+        jLabel45.setText("Exam score");
+        scoreBar.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 321, 80, -1));
+        scoreBar.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 238, 185, 10));
+
+        jLabel46.setText("Enter Student Matric Number");
+        scoreBar.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 163, 180, -1));
+
+        jLabel47.setText("C.A Score");
+        scoreBar.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 321, 79, -1));
+
+        jButton10.setText("Delete");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        scoreBar.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, 80, -1));
+
+        lblName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        scoreBar.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 254, 132, 29));
+
+        jButton16.setText("Print");
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+        scoreBar.add(jButton16, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 490, -1, -1));
+
+        jButton17.setText("Export");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        scoreBar.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 450, -1, -1));
+        scoreBar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 293, 185, 10));
+
+        jPanel13.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel44.setText("Select Course");
+        jPanel13.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 100, 30));
+
+        scoreCourse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scoreCourseMouseClicked(evt);
+            }
+        });
+        jPanel13.add(scoreCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 160, 30));
+
+        lblScoreMsg1.setFont(new java.awt.Font("Dialog", 2, 10)); // NOI18N
+        lblScoreMsg1.setForeground(new java.awt.Color(153, 51, 0));
+        jPanel13.add(lblScoreMsg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 190, 20));
+
+        scoreBar.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 46, 280, 105));
+
+        txtmat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtmatKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtmatKeyTyped(evt);
+            }
+        });
+        scoreBar.add(txtmat, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 185, 185, 35));
+
+        hiddenTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(hiddenTable);
+
+        sideBar.setLayer(scoreBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        sideBar.setLayer(jScrollPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout sideBarLayout = new javax.swing.GroupLayout(sideBar);
+        sideBar.setLayout(sideBarLayout);
+        sideBarLayout.setHorizontalGroup(
+            sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scoreBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLayout.createSequentialGroup()
+                    .addContainerGap(71, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(49, Short.MAX_VALUE)))
+        );
+        sideBarLayout.setVerticalGroup(
+            sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sideBarLayout.createSequentialGroup()
+                .addComponent(scoreBar, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLayout.createSequentialGroup()
+                    .addContainerGap(61, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(28, Short.MAX_VALUE)))
+        );
+
+        panel1.add(sideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 12, 302, 543));
+
+        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
+        panel.setLayout(panelLayout);
+        panelLayout.setHorizontalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        panelLayout.setVerticalGroup(
+            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLayout.createSequentialGroup()
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                    .addComponent(tablePane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
+        jMenu5.setText("File");
+
+        jMenu1.setText("Import");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem4.setText("Scores");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuItem5.setText("Students");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem5);
+
+        jMenu5.add(jMenu1);
+
+        jMenuItem1.setText("Export");
+        jMenu5.add(jMenuItem1);
+
+        jMenuItem2.setText("Logout");
+        jMenu5.add(jMenuItem2);
+
+        jMenuItem3.setText("Exit");
+        jMenu5.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu2.setText("Students");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu2ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("About");
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Help");
+        jMenuBar1.add(jMenu4);
+
+        jMenu6.setText("Setting");
+
+        jMenuItem6.setText("Change Session");
+        jMenuItem6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem6MouseClicked(evt);
+            }
+        });
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem6);
+
+        jMenuItem7.setText("Change Semester");
+        jMenuItem7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem7MouseClicked(evt);
+            }
+        });
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu6);
+
+        setJMenuBar(jMenuBar1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1125, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 583, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        setSize(new java.awt.Dimension(1141, 645));
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        int row=resultTable.getSelectedRow();
+
+       Update_Table((String) scoreCourse.getSelectedItem(),(String) session );
+
+        clear();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+
+        String course=(String)scoreCourse.getSelectedItem();
+       // String session=(String)sessionCombo.getSelectedItem();
+        String matric=txtmat.getText();
+        String name=lblName.getText();
+        String caa=txtca.getText();
+        String exaam=txtexam.getText();
+        String sem=session;
+
+        if ((sem == null || course == null || matric == null )){
+            try{
+                JOptionPane.showMessageDialog(null, "Some Fields are empty!");
+            } catch(Exception e){
+
+            }
+
+        }else if (caa.trim().isEmpty()){
+            try{
+                JOptionPane.showMessageDialog(null, " C_A score not entered!");
+            }catch(Exception e){
+
+            }
+        }
+        else if (exaam.trim().isEmpty()){
+            try{
+                JOptionPane.showMessageDialog(null, "Exam score not entered!");
+            }catch(Exception e){
+
+            }
+        }
+
+        else if ( name == null || dept == null){
+            try{
+                JOptionPane.showMessageDialog(null, txtmat.getText()+" does not exist in the selected program database !");
+                int p=JOptionPane.YES_NO_OPTION;
+                int b= JOptionPane.showConfirmDialog(this, "would you like to add the student to our database?","Add Student", p);
+
+                if(b == 0) {
+
+                    dialog1.setVisible(true);
+
+                }
+
+            }catch(Exception e){
+
+            }
+        }
+
+        else if(!(name.equals(null) && session.equals(null)&& dept.equals(null) && course.equals(null) && matric.equals(null) && caa.equals(null)&& exaam.equals(null))) {
+            gp();
+			hd();
+            clear1();
+            try{
+                String sql="select * from scores where course=? and semester='"+semester+"' "
+						+ "and session='"+session+"'";
+                pst=conn.prepareStatement(sql);
+                pst.setString(1, course);
+                rs=pst.executeQuery();
+                resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+            }catch(Exception e){
+                //JOptionPane.showMessageDialog(null, "5");
+            }
+
+        }
+
+    }//GEN-LAST:event_btnsaveActionPerformed
+
+    private void txtexamKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtexamKeyTyped
+        try{
+            char c= evt.getKeyChar();
+            if(Character.isLetter(c)&& !evt.isAltDown()){
+                evt.consume();
+            }
+        }catch(Exception e){
+
+        }
+    }//GEN-LAST:event_txtexamKeyTyped
+
+    private void txtcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcaKeyTyped
+        try{
+            char c= evt.getKeyChar();
+            if(Character.isLetter(c)&& !evt.isAltDown()){
+                evt.consume();
+            }
+        }catch(Exception e){
+
+        }
+    }//GEN-LAST:event_txtcaKeyTyped
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        int row = resultTable.getSelectedRow();
+        String mat=resultTable.getModel().getValueAt(row, 0).toString();
+        String code=resultTable.getModel().getValueAt(row, 4).toString();
+
+        try{
+            String sql=" DELETE FROM scores WHERE matric=? and course=?";
+            pst=conn.prepareStatement(sql);
+            pst.setString(1, mat);
+            pst.setString(2, code);
+            pst.execute();
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        Update_Table((String) scoreCourse.getSelectedItem(),(String) session );
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        printHead=scoreCourse.getSelectedItem().toString();
+
+        printSess=session;
+        printType="ScoreSheet ";
+        MessageFormat header = new MessageFormat( printHead+ " \n" + printSess +" "+ printType);
+        MessageFormat footer = new MessageFormat("page");
+        try{
+            resultTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Unable to Print");
+        }
+    }//GEN-LAST:event_jButton16ActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+
+		/*
+		try{
+			String report="C:\\Users\\AD0KW3\\Documents\\NetBeansProjects\\"
+					+ "ResultCalculator\\src\\New folder\\emptyReport";
+			JasperReport jr=JasperCompileManager.compileReport(report);
+			JasperPrint jp=JasperFillManager.fillReport(jr, null, conn);
+			JasperViewer.viewReport(jp);
+			
+		}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		*/
+		String de= dept;
+        header2=de;
+        header3= scoreCourse.getSelectedItem().toString()+"    "+  session;
+        header4="SCORES";
+        cCount=resultTable.getColumnCount();
+        rCount=resultTable.getRowCount();
+
+        if(chooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+            // creating word document
+            try {
+                d = new XWPFDocument();
+
+                CTDocument1 document = d.getDocument();
+                CTBody body = document.getBody();
+
+                if (!body.isSetSectPr()) {
+                    body.addNewSectPr();
+                }
+                CTSectPr section = body.getSectPr();
+
+                if(!section.isSetPgSz()) {
+                    section.addNewPgSz();
+                }
+                CTPageSz pageSize = section.getPgSz();
+
+                pageSize.setW(BigInteger.valueOf(15840));
+                pageSize.setH(BigInteger.valueOf(12240));
+
+                pageSize.setOrient(STPageOrientation.LANDSCAPE);
+
+                FileOutputStream out = new FileOutputStream(new File(chooser.getSelectedFile().getAbsolutePath()+".docx"));
+
+                word(header1,  header2, header3, header4,header5, cCount, rCount);
+
+                d.write(out);
+                d.close();
+                JOptionPane.showMessageDialog(null, "Saved...");
+
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+        }
+
+        /*
+        try{
+            Workbook wb = new HSSFWorkbook();
+            CreationHelper createhelper = wb.getCreationHelper();
+            Sheet sheet = wb.createSheet("new sheet");
+            Row row = null;
+            Cell cell = null;
+            for (int i=0;i<resultTable.getRowCount();i++) {
+                row = sheet.createRow(i);
+                for (int j=0;j<resultTable.getColumnCount();j++) {
+
+                    cell = row.createCell(j);
+                    cell.setCellValue((String) resultTable.getValueAt(i, j));
+                }
+            }
+
+            FileOutputStream out = new FileOutputStream("E:\\workbook.xls");
+            wb.write(out);
+            out.close();
+
+        }
+
+        catch (FileNotFoundException ex) {
+            Logger.getLogger(ExportToExcel.class.getName()).log(Level.SEVERE, null, ex);
+        }       catch (IOException ex) {
+            Logger.getLogger(MainCal1.class.getName()).log(Level.SEVERE, null, ex);
+        }     */
+    }//GEN-LAST:event_jButton17ActionPerformed
+
+    private void scoreCourseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scoreCourseMouseClicked
+        String ses=semester;
+        try{
+            if(ses.equals(null)|| ses==null){
+                lblScoreMsg1.setText("No Semester Selected!!!");
+            }
+        }catch(Exception e){
+
+        }
+    }//GEN-LAST:event_scoreCourseMouseClicked
+
+    private void txtmatKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmatKeyReleased
+
+        try{
+            lblName.setText(null);
+            //dept=null;
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        try{
+
+            String sql ="select * from student where matric=? ";
+
+            pst=conn.prepareStatement(sql);
+            pst.setString(1,txtmat.getText());
+            rs=pst.executeQuery();
+            //nameTaq.setText("Student Name: ");
+            lblName.setText(rs.getString("NAME"));
+            //dept=rs.getString("DEPARTMENT");
+            if(!rs.next()){
+                JOptionPane.showMessageDialog(null, "Student does not Exist!");
+            }
+
+        }catch(Exception e){
+            //JOptionPane.showMessageDialog(null, e);
+        }
+        try{
+            String code=(String)scoreCourse.getSelectedItem();
+            String sql = "select * from courses where code=?";
+            pst=conn.prepareStatement(sql);
+            pst.setString(1, code);
+            rs=pst.executeQuery();
+            if(rs.next()){
+                cred=rs.getString("CREDIT");
+            }
+        }catch(Exception e){
+
+        }
+        finally {
+
+            try{
+
+                rs.close();
+                pst.close();
+
+            }
+            catch(Exception e){
+
+            }
+        }
+
+    }//GEN-LAST:event_txtmatKeyReleased
+
+    private void txtmatKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmatKeyTyped
+        try{
+            char c= evt.getKeyChar();
+            if(Character.isLetter(c)&& !evt.isAltDown()){
+                evt.consume();
+            }
+        }catch(Exception e){
+
+        }
+    }//GEN-LAST:event_txtmatKeyTyped
+
+    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
+resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+				dialogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+				dialog1.setVisible(true);
+            try{
+                String sql= "select * from student WHERE department=? and level=? ";
+                pst=conn.prepareStatement(sql);
+                pst.setString(1, dept);
+                pst.setString(2, lev);
+                rs=pst.executeQuery();
+                dialogTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+                rs.close();
+                pst.close();
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+                       
+    }//GEN-LAST:event_jMenu2ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        String newMatric=txtNewStudentMatric1.getText().toUpperCase();
+        try{
+            String sql="select * from student where matric=? ";
+            pst=conn.prepareStatement(sql);
+            pst.setString(1, newMatric );
+            rs=pst.executeQuery();
+            if(rs.next()){
+                try{
+
+                    String sqll = "update Student set matric=?, name=?, department=? , level=?"
+                    + " WHERE matric='"+newMatric+"' ";
+                    pst=conn.prepareStatement(sqll);
+                    pst.setString(1, newMatric);
+                    pst.setString(2, txtNewStudentName1.getText().toUpperCase() );
+                    pst.setString(3,(String) newStudentDeptCombo1.getSelectedItem());
+                    pst.setString(4, (String) addStudentLevelCombo1.getSelectedItem());
+                    pst.execute();
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+            }
+            else if(!rs.next()){
+                try{
+                    String sqle ="INSERT INTO Student(matric, name, department,  level) VALUES ( ?,?,?,?) ";
+                    pst=conn.prepareStatement(sqle);
+                    pst.setString(1, txtNewStudentMatric1.getText().toUpperCase());
+                    pst.setString(2, txtNewStudentName1.getText().toUpperCase() );
+                    pst.setString(3,(String) newStudentDeptCombo1.getSelectedItem());
+                    pst.setString(4, (String) addStudentLevelCombo1.getSelectedItem());
+                    pst.execute();
+                    //JOptionPane.showMessageDialog(null,"New Student Added successfully!");
+
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+
+            }
+            rs.close();
+            pst.close();
+        }catch(Exception e){
+
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+        try{
+            String sq="select* from student where matric='"+newMatric+"' ";
+            pst=conn.prepareStatement(sq);
+            rs=pst.executeQuery();
+            dialogTable.setModel(DbUtils.resultSetToTableModel(rs));
+        }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+
+        txtNewStudentMatric1.setText(null);
+        txtNewStudentName1.setText(null);
+        newStudentDeptCombo1.setSelectedItem(null);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void addStudentLevelCombo1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_addStudentLevelCombo1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addStudentLevelCombo1ItemStateChanged
+
+    private void addStudentBarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addStudentBarMouseMoved
+
+    }//GEN-LAST:event_addStudentBarMouseMoved
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        
+        chooser.showOpenDialog(null);
+        chooser.setDialogTitle("Select only Excel 98-2003 workbooks");
+        File file = chooser.getSelectedFile();
+
+        try{
+
+            if(file==null)
+            {
+                JOptionPane.showMessageDialog(
+                    null, "Please select any Excel file",
+                    "Help",
+                    JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            else if(!file.getName().endsWith("xls"))
+            {
+                JOptionPane.showMessageDialog(
+                    null, "Please select only Excel file.",
+                    "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                fillData(file);
+                model = new DefaultTableModel(vectordata, headers);
+                tableWidth = model.getColumnCount() * 150;
+                tableHeight = model.getRowCount() * 25;
+                resultTable.setPreferredSize(new Dimension( tableWidth, tableHeight));
+                resultTable.setModel(model);
+            }
+
+        }   catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+		// create a temporary table in the db and export to it before you calculate
+		
+		
+		// Computing and Saving....
+		
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        
+        chooser.showOpenDialog(null);
+        chooser.setDialogTitle("Select only Excel 98-2003 workbooks");
+        File file = chooser.getSelectedFile();
+
+        try{
+
+            if(file==null)
+            {
+                JOptionPane.showMessageDialog(
+                    null, "Please select any Excel file",
+                    "Help",
+                    JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            else if(!file.getName().endsWith("xls"))
+            {
+                JOptionPane.showMessageDialog(
+                    null, "Please select only Excel file.",
+                    "Error",JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                fillData(file);
+                model = new DefaultTableModel(vectordata, headers);
+                tableWidth = model.getColumnCount() * 150;
+                tableHeight = model.getRowCount() * 25;
+                resultTable.setPreferredSize(new Dimension( tableWidth, tableHeight));
+                resultTable.setModel(model);
+            }
+
+        }   catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+				dialogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+				dialog1.setVisible(true);
+            try{
+                String sql= "select * from student WHERE department=? and level=? ";
+                pst=conn.prepareStatement(sql);
+                pst.setString(1, dept);
+                pst.setString(2, lev);
+                rs=pst.executeQuery();
+                dialogTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+                rs.close();
+                pst.close();
+
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+
+       
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem6MouseClicked
+        // 3 previous years
+	DateTimeFormatter f11 = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h11 = DateTimeFormatter.ofPattern("YY");
+		LocalDate now11=LocalDate.now().minusYears(2);
+		LocalDate date11=LocalDate.now().minusYears(3);		
+		String bf11 = date11.format(f11);
+		String aft11= now11.format(h11);	
+// 2 previous years
+	DateTimeFormatter f1 = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h1 = DateTimeFormatter.ofPattern("YY");
+		LocalDate now1=LocalDate.now().minusYears(1);
+		LocalDate date1=LocalDate.now().minusYears(2);		
+		String bf1 = date1.format(f1);
+		String aft1= now1.format(h1);
+		//previous session
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h = DateTimeFormatter.ofPattern("YY");
+		LocalDate now=LocalDate.now();
+		LocalDate date=LocalDate.now().minusYears(1);		
+		String bf = date.format(f);
+		String nw= now.format(h);
+		//next session
+		DateTimeFormatter ff = DateTimeFormatter.ofPattern("YY");
+		DateTimeFormatter hh = DateTimeFormatter.ofPattern("YYYY");
+		LocalDate noww=LocalDate.now();
+		LocalDate later=LocalDate.now().plusYears(1);		
+		String la = later.format(ff);
+		String nww= noww.format(hh);
+		
+		String prevvv = bf11+"/"+aft11;
+		String prevv = bf1+"/"+aft1;
+		String prev = bf+"/"+nw;
+		String next = nww+"/"+la;
+		
+		JFrame frame = new JFrame("Input Dialog");      
+		String[] lists ={next, prev, prevv, prevvv };		
+		session = (String) JOptionPane.showInputDialog(
+			 frame, "Change Session?", "Session",
+			 JOptionPane.QUESTION_MESSAGE, null, lists, lists[0]);
+    }//GEN-LAST:event_jMenuItem6MouseClicked
+
+    private void jMenuItem7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem7MouseClicked
+        JFrame frame = new JFrame("Input Dialog");      
+		String[] lists ={"First", "Second"};		
+		semester= (String) JOptionPane.showInputDialog(
+			 frame, "Change Session?", "Session",
+			 JOptionPane.QUESTION_MESSAGE, null, lists, lists[0]);
+		
+		fillCourse();
+    }//GEN-LAST:event_jMenuItem7MouseClicked
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+         JFrame frame = new JFrame("Input Dialog");      
+		String[] lists ={"First", "Second"};		
+		semester= (String) JOptionPane.showInputDialog(
+			 frame, "Change Session?", "Session",
+			 JOptionPane.QUESTION_MESSAGE, null, lists, lists[0]);
+		
+		fillCourse();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+            // 3 previous years
+	DateTimeFormatter f11 = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h11 = DateTimeFormatter.ofPattern("YY");
+		LocalDate now11=LocalDate.now().minusYears(2);
+		LocalDate date11=LocalDate.now().minusYears(3);		
+		String bf11 = date11.format(f11);
+		String aft11= now11.format(h11);	
+// 2 previous years
+	DateTimeFormatter f1 = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h1 = DateTimeFormatter.ofPattern("YY");
+		LocalDate now1=LocalDate.now().minusYears(1);
+		LocalDate date1=LocalDate.now().minusYears(2);		
+		String bf1 = date1.format(f1);
+		String aft1= now1.format(h1);
+		//previous session
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("YYYY");
+		DateTimeFormatter h = DateTimeFormatter.ofPattern("YY");
+		LocalDate now=LocalDate.now();
+		LocalDate date=LocalDate.now().minusYears(1);		
+		String bf = date.format(f);
+		String nw= now.format(h);
+		//next session
+		DateTimeFormatter ff = DateTimeFormatter.ofPattern("YY");
+		DateTimeFormatter hh = DateTimeFormatter.ofPattern("YYYY");
+		LocalDate noww=LocalDate.now();
+		LocalDate later=LocalDate.now().plusYears(1);		
+		String la = later.format(ff);
+		String nww= noww.format(hh);
+		
+		String prevvv = bf11+"/"+aft11;
+		String prevv = bf1+"/"+aft1;
+		String prev = bf+"/"+nw;
+		String next = nww+"/"+la;
+		
+		JFrame frame = new JFrame("Input Dialog");      
+		String[] lists ={next, prev, prevv, prevvv };		
+		session = (String) JOptionPane.showInputDialog(
+			 frame, "Change Session?", "Session",
+			 JOptionPane.QUESTION_MESSAGE, null, lists, lists[0]);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String args[]) {
+		/* Set the Nimbus look and feel */
+		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+		/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+		 */
+		try {
+			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					javax.swing.UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (ClassNotFoundException ex) {
+			java.util.logging.Logger.getLogger(score.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (InstantiationException ex) {
+			java.util.logging.Logger.getLogger(score.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (IllegalAccessException ex) {
+			java.util.logging.Logger.getLogger(score.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+			java.util.logging.Logger.getLogger(score.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		}
+		//</editor-fold>
+
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new score().setVisible(true);
+			}
+		});
+	}
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addStudentBar;
+    private javax.swing.JComboBox<String> addStudentLevelCombo1;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnsave;
+    private javax.swing.JFrame dialog1;
+    private javax.swing.JTable dialogTable;
+    private javax.swing.JTable hiddenTable;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblScoreMsg1;
+    private javax.swing.JComboBox<String> newStudentDeptCombo1;
+    private javax.swing.JPanel panel;
+    private javax.swing.JPanel panel1;
+    private javax.swing.JTable resultTable;
+    private javax.swing.JPanel scoreBar;
+    private javax.swing.JComboBox<String> scoreCourse;
+    private javax.swing.JLayeredPane sideBar;
+    private javax.swing.JPanel tablePane;
+    private javax.swing.JTextField txtNewStudentMatric1;
+    private javax.swing.JTextField txtNewStudentName1;
+    private javax.swing.JTextField txtca;
+    private javax.swing.JTextField txtexam;
+    public javax.swing.JTextField txtmat;
+    // End of variables declaration//GEN-END:variables
+
+public void gpo(){
+      // String course=(String)scoreCourseCombo1.getSelectedItem();
+     //  String semester=(String)sessionCombo.getSelectedItem();
+       String course=(String)scoreCourse.getSelectedItem();
+       String matric=txtmat.getText();
+       
+       String name=lblName.getText();
+       int ca=Integer.parseInt(txtca.getText());
+       int exam=Integer.parseInt(txtexam.getText());
+       
+      
+      
+      
+       
+       int total=ca+exam;     
+       int cu=Integer.parseInt(cred);
+       
+        if(total >=70 &&  total <=100){
+                
+              grade = "A";
+              ce=5;
+              remark="Pass";
+              ;
+            }
+            else if (total >=60 && total<=69){
+                grade = "B";
+                ce=4;
+                remark="Pass";
+                
+               
+            } else if (total>=50 &&  total <=59){
+               grade = "C";
+               ce=3;
+               remark="Pass";
+               
+            }
+            else if(total>=45&&  total <=49){
+                 grade = "D";
+                 ce=2;
+                 remark="Pass";
+               
+            }else if(total>=40 && total<=44) {
+                grade="E";
+                ce=1;
+                remark="Pass";
+               
+            }
+            else{
+                grade="F";
+               ce=0;
+                remark="Fail";
+            }
+        
+        
+        try{
+           String sql="select * from courses where code=? ";
+           pst=conn.prepareStatement(sql);
+          pst.setString(1, course);
+           rs=pst.executeQuery();
+           if(rs.next()){
+               cu=rs.getInt("CREDIT");
+                
+             
+             
+           }
+           rs.close();
+           pst.close();
+                   
+           
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+           
+       }
+ // multiplying the credit earned by the course credit Unit 
+        
+ 
+ 
+ gp=ce*cu;
+ 
+       //inserting the result into the database
+       
+       
+       try{
+       String sql= "select* from scores where matric=? and course='"+course+"'";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+               
+        try{
+            String updateScore = "update scores set SEMESTER=?, CA=?, EXAM=?, TOTAL=?, GRADE=?, CE=?, gp=?, REMARK=?, session=? where matric='"+matric+"' and course='"+course+"'";
+
+                pst=conn.prepareStatement(updateScore);
+              pst.setString(1, semester);
+              pst.setInt(2, ca);
+              pst.setInt(3, exam);
+              pst.setInt(4, total);
+              pst.setString(5, grade);
+              pst.setInt(6, ce);
+              pst.setInt(7, gp);
+              pst.setString(8, remark);
+			  pst.setString(9, session);
+              
+                pst.execute();
+                            
+        rs.close();
+        pst.close();
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, "2");
+        }
+                   
+           }        
+                  
+           else if (!rs.next()){
+               
+                          
+        try{
+            String insertScore = "insert into scores (MATRIC, NAME, DEPARTMENT, LEVEL,"
+					+ " COURSE, CU, SEMESTER, CA, EXAM, TOTAL, GRADE, CE, gp, REMARK, session) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                pst=conn.prepareStatement(insertScore);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept );
+                pst.setString(4, null );
+                pst.setString(5, course);
+                pst.setString(6, Integer.toString(cu));
+                pst.setString(7, semester);
+                pst.setString(8,Integer.toString(ca) );
+                pst.setString(9, Integer.toString(exam)  );
+                pst.setString(10, Integer.toString(total) );
+                pst.setString(11,   grade );
+                pst.setString(12,   Integer.toString(ce) );
+                pst.setString(13,  Integer.toString(gp) );
+                pst.setString(14,  remark  );
+				pst.setString(15,  session  );
+                
+                pst.execute();
+                            
+        rs.close();
+        pst.close();
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+           }
+           
+       
+    
+           
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+       }
+        String llev=null ; 
+       //initialising the arrayList that will hold gp, credit unit, and gradescore from the db
+   String tc;
+   String tr;
+        ArrayList<String> ar=new ArrayList<>();
+        ArrayList<String> artc=new ArrayList<>();
+        ArrayList<String> artr=new ArrayList<>();
+        ArrayList<String> arNSS=new ArrayList<>();
+        
+        // getting all the grade point, credit unit and credit earned of the current student
+        try{
+    
+            String sql= "select* from scores where matric=? and semester='"+semester+"'";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+          
+           while(rs.next()){
+              result=rs.getString("gp") ;
+              tr=rs.getString("CU");
+              tc=rs.getString("CE");
+               ar.add(result);
+               artc.add(tc);
+               artr.add(tr);
+           }
+           rs.close();
+           pst.close();
+         }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } 
+        
+        
+        // getting the number of semester spent
+        try{
+            String sql="select distinct semester from scores where matric=? ";
+            pst=conn.prepareStatement(sql);
+             pst.setString(1, matric);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                arNSS.add(rs.getString("SEMESTER"));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        
+        
+            String[] stud = ar.toArray(new String[ar.size()]);
+            String[] stc = artc.toArray(new String[artc.size()]);
+            String[] str = artr.toArray(new String[artr.size()]);
+            String[] stNSS = arNSS.toArray(new String[arNSS.size()]);
+            
+            int NSS=arNSS.size();
+            
+         
+            // setting Student level
+            if(NSS<=2){
+                llev="1";
+            }else if(NSS==3 || NSS==4){
+                llev="2";
+            }else if(NSS==5 || NSS==6){
+                llev="3";
+            }else if(NSS>=7){
+                llev="4";
+            }
+            
+            
+            
+            int size = ar.size();
+           
+            for(int i=0; i<size; i++){
+                tGp+=Integer.parseInt(stud[i]);
+                tce+=Integer.parseInt(stc[i]);
+                tcr+=Integer.parseInt(str[i]);
+            }
+           
+            
+            // dividing the total gradepoint by the total credit registered 
+            BigDecimal gpee= new BigDecimal(Integer.toString(tGp));
+			BigDecimal gpr= new BigDecimal(Integer.toString(tcr));
+			double ff = gpee.doubleValue()/gpr.doubleValue();
+			//BigDecimal gpar=gpee.divide(gpr);
+			BigDecimal gpar=new BigDecimal(Double.toString(ff));
+			
+			
+            
+            // rounding the value of the above division to two decimal places
+        
+         gpar=round(gpar);
+		gpa=gpar.toString();
+		
+           
+           
+   try{
+            String insertScore = "update scores set LEVEL=? where matric=? and session='"+session+"'  ";
+                
+                pst=conn.prepareStatement(insertScore);
+                pst.setString(1, llev);
+                pst.setString(2, matric);
+                pst.execute();
+                            
+        rs.close();
+        pst.close();
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        
+           }         
+               
+           
+            
+                   
+      // inserting tcr, tce, tgp and gpa into the GP table      
+           
+      try{
+    String sql="select * from gp where matric=?  and semester='"+semester+"' ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+                    
+            String sqll = "update gp set TCR=?, TCE=?, tgp=?, gpa=?  WHERE matric='"+matric+"'"
+					+ " and semester='"+semester+"' ";
+ pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "GPerror");
+                }
+               
+                          
+                        }  
+        else if(!rs.next()){
+                try{
+            String sqll = "insert into gp (MATRIC, NAME, DEPARTMENT,   SEMESTER,  TCR, TCE, TGP,"
+					+ " gpa, session) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                pst=conn.prepareStatement(sqll);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept );
+                pst.setString(4, semester);
+				pst.setString(9, session);
+                pst.setInt(5, tcr);
+                pst.setInt(6, tce);
+                 pst.setInt(7, tGp);
+                pst.setString(8, gpa);
+                
+                
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+           }
+ rs.close();
+ pst.close();
+      }catch(Exception e){
+          
+          JOptionPane.showMessageDialog(null, e);
+
+      }
+      
+      
+      
+      //initialising arrayLists that will hold all gpa, tce, tcr and tgp from the db
+        ArrayList<Double> arGp=new ArrayList<>();
+        ArrayList<String> arctce=new ArrayList<>();
+         ArrayList<String> arctcr=new ArrayList<>();
+          ArrayList<String> arctgp=new ArrayList<>();
+       try{
+    String sql="select * from gp where matric=? ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           while(rs.next()){
+              arGp.add(rs.getDouble("GPA"));
+               arctce.add(rs.getString("TCE"));
+               arctcr.add(rs.getString("TCR"));
+               arctgp.add(rs.getString("TGP"));
+                             
+           }
+       }catch(Exception e){
+           
+       }
+        
+        Double[] stGp = arGp.toArray(new Double[arGp.size()]);
+         int stGpSize = arGp.size();
+         
+         if(stGpSize==1){
+           level1GP=stGp[0].toString();
+         }
+         else if(stGpSize==2){
+        
+         double f1=stGp[0];
+         double f=stGp[1];
+         double fsum=f1+f;
+         BigDecimal lev1=new BigDecimal(Double.toString(fsum/2));
+		 lev1=round(lev1);
+         level1GP=lev1.toString();
+         }
+         
+         if(stGpSize==3){
+            double fi=stGp[2];
+             level2GP=Double.toString(fi); 
+         }
+         else  if(stGpSize==4){
+         double h=stGp[2];
+         double h1=stGp[3];
+         double hsum=h1+h;
+         BigDecimal lev1=new BigDecimal(Double.toString(hsum/2));
+		 lev1=round(lev1);
+         level2GP=lev1.toString();
+         }
+         
+         if(stGpSize==5){
+            // double fi=stGp[4];
+             level3GP=stGp[4].toString();
+         }
+          else  if(stGpSize==6){
+                
+        double j=stGp[4];
+        double j1=stGp[5];
+        double jsum=j1+j;
+        BigDecimal lev1=new BigDecimal(Double.toString(jsum/2));
+		 lev1=round(lev1);
+         level3GP=lev1.toString();
+                
+         }
+
+         if(stGpSize==7){
+             //double fi=stGp[6];
+             level4GP=stGp[6].toString();
+         }
+         else  if(stGpSize==8){
+       try{
+        double k=stGp[6];
+         double k1=stGp[7];
+         double ksum=k1+k;
+         BigDecimal lev1=new BigDecimal(Double.toString(ksum/2));
+		 lev1=round(lev1);
+         level4GP=lev1.toString();
+         
+         }catch(Exception e){}
+        
+  } 
+         
+         String[] stTce = arctce.toArray(new String[arctce.size()]);
+         int stTceSize = arctce.size();
+         
+         String[] stTcr = arctcr.toArray(new String[arctcr.size()]);
+         int stTcrSize = arctcr.size();
+         
+         String[] stTgp = arctgp.toArray(new String[arctgp.size()]);
+         int stTgpSize = arctgp.size();
+         
+         int ctce = 0;
+         int ctcr = 0;
+         int ctgp= 0;
+          double l = 0;
+         
+         try{
+             
+         for(int i=0; i<stTceSize; i++){
+             ctce += Integer.parseInt(stTce[i]);
+         }
+         for(int i=0; i<stTcrSize; i++){
+             ctcr += Integer.parseInt(stTcr[i]);
+         }
+         
+         for(int i=0; i<stTgpSize; i++){
+             ctgp += Integer.parseInt(stTgp[i]);
+         }
+         
+         }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e); 
+         }
+        
+         
+
+
+//getting the cgpa by rounding it to two deecimal places
+        double cgpe=(double)ctgp/(double)ctcr;
+        BigDecimal cgps=new BigDecimal(Double.toString(cgpe));
+		 cgps=round(cgps);
+        String cgpa=cgps.toString();
+         
+         
+         
+         
+         
+       // inserting values INTO the cgpa table  
+       
+       if (stGpSize>=1 && stGpSize<=2){
+           
+           try{
+             String sql="select * from cgpa where matriculation=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRICULATION=?, NAME=?, NSS=?"
+					 + ", LEVEL_ONE=?,  CTCR=?, CTCE=?, ctgp=?, CGPA=?,"
+					 + " LEVEL=?  WHERE matriculation='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level1GP );
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 1);
+                
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "cgpaerror");
+                }
+                try{
+             String sqlu="update level1 set  MATRIC=?, name=?,TCR=?, TCE=?,"
+					 + " tgp=?, GPA=?  WHERE MATRIC='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setInt(5, ctgp);
+                pst.setString(6, level1GP);
+               
+                
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+                
+               
+                          
+                        }  
+        else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRICULATION, NAME, NSS, "
+					 + "LEVEL_ONE, CTCR, CTCE, CTGP, CGPA, level)  VALUES"
+					 + " (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level1GP );
+               pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 1);
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+                try{
+             String sqli="insert into level1  (matric, name, department,"
+					 + " program, tcr, tce, tgp, gpa ) VALUES (?, ?, ?, ?, "
+					 + "?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, level1GP );
+                
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+           }
+         }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, "3");
+        }
+         
+       }
+       
+       
+       else if (stGpSize>=3 && stGpSize<=4){
+           try{
+             String sql="select * from cgpa where matriculation=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRICULATION=?, NAME=?, NSS=?, "
+					 + "LEVEL_TWO=?,  CTCR=?, CTCE=?, ctgp=?, CGPA=? level=? "
+					 + " matriculation='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level2GP );
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 2);
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+                
+                try{
+                String sqlu="update level2 set  MATRIC=?, name=?,TCR=?, TCE=?, "
+						+ "tgp=?, GPA=?  WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setInt(5, ctgp);
+                pst.setString(6, level2GP);
+               
+                
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+               
+                          
+                        }  
+        else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRICULATION, NAME, NSS, LEVEL_TWO,"
+					 + " CTCR, CTCE, CTGP, CGPA, level)  VALUES (?, ?, ?, ?, ?, "
+					 + "?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level2GP );
+               pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+               pst.setInt(9, 2);
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+                try{
+             String sqli="insert into level2  (matric, name, department, program, "
+					 + "tcr, tce, tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, level2GP );
+                
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+          
+           }
+         }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+         
+           
+       }
+       
+       
+       else if (stGpSize>=5 && stGpSize<=6){
+          try{
+             String sql="select * from cgpa where matriculation=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRICULATION=?, NAME=?, NSS=?, "
+					 + "LEVEL_THREE=?,  CTCR=?, CTCE=?, ctgp=?, CGPA=?, level=?"
+					 + "  WHERE matriculation='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level3GP );
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 3);
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+                 try{
+                String sqlu="update level3 set  MATRIC=?, name=?,TCR=?, TCE=?, tgp=?,"
+						+ " GPA=?  WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setInt(5, ctgp);
+                pst.setString(6, level3GP);
+               
+                
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+               
+                          
+                        }  
+        else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRICULATION, NAME, NSS, LEVEL_THREE,"
+					 + " CTCR, CTCE, CTGP, CGPA, level)  VALUES (?, ?, ?, ?, ?, ?, ?, "
+					 + "?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level3GP );
+               pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 3);
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+                try{
+             String sqli="insert into level3  (matric, name, department, program, tcr,"
+					 + " tce, tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, level3GP );
+                
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+          
+           }
+         }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, "3");
+        }
+           
+       }
+       
+       
+       else if (stGpSize>=7 && stGpSize<=8){
+         try{
+             String sql="select * from cgpa where matriculation=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRICULATION=?, NAME=?, NSS=?, LEVEL"
+					 + "_ONE=?,  CTCR=?, CTCE=?, ctgp=?, CGPA=?, level=?  WHERE "
+					 + "matriculation='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level4GP );
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+                pst.setInt(9, 4);
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+                try{
+                String sqlu="update level4 set  MATRIC=?, name=?,TCR=?, TCE=?, tgp=?,"
+						+ " GPA=?  WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setInt(5, ctgp);
+                pst.setString(6, level4GP);
+               
+                
+                pst.execute();
+                                     
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "4");
+                }
+                          
+                        }  
+        else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRICULATION, NAME, NSS, LEVEL_FOUR, CTCR,"
+					 + " CTCE, CTGP, CGPA, level)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, NSS);
+                pst.setString(4, level4GP );
+               pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, cgpa);
+               pst.setInt(9, 4);
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+                try{
+             String sqli="insert into level4  (matric, name, department, program, tcr, tce, "
+					 + "tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(4, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setInt(7, ctgp);
+                pst.setString(8, level4GP );
+                
+               
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+          
+           }
+         }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, "3");
+        }
+            
+       }
+         
+       
+   }
+
+public void gp(){
+    
+       String course=(String)scoreCourse.getSelectedItem();
+       String matric=txtmat.getText();
+       
+       String name=lblName.getText();
+       int ca=Integer.parseInt(txtca.getText());
+       int exam=Integer.parseInt(txtexam.getText());
+       
+       int total=ca+exam;     
+       int cu=Integer.parseInt(cred);
+       
+        if(total >=70 &&  total <=100){
+                
+              grade = "A";
+              ce=5;
+              remark="Pass";
+              ;
+            }
+            else if (total >=60 && total<=69){
+                grade = "B";
+                ce=4;
+                remark="Pass";
+                
+               
+            } else if (total>=50 &&  total <=59){
+               grade = "C";
+               ce=3;
+               remark="Pass";
+               
+            }
+            else if(total>=45&&  total <=49){
+                 grade = "D";
+                 ce=2;
+                 remark="Pass";
+               
+            }else if(total>=40 && total<=44) {
+                grade="E";
+                ce=1;
+                remark="Pass";
+               
+            }
+            else{
+                grade="F";
+               ce=0;
+                remark="Fail";
+            }
+        
+        
+        try{
+           String sql="select * from courses where code=? ";
+           pst=conn.prepareStatement(sql);
+          pst.setString(1, course);
+           rs=pst.executeQuery();
+           if(rs.next()){
+               cu=rs.getInt("CREDIT");
+           }
+           rs.close();
+           pst.close();
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(null, e);
+           
+       }
+	 // multiplying the credit earned by the course credit Unit 
+		gp=ce*cu;
+ 
+       //inserting the result into the database
+       try{
+       String sql= "select* from scores where matric=? and course='"+course+"'";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+               
+        try{
+            String updateScore = "update scores set SEMESTER=?, CA=?, EXAM=?,"
+					+ " TOTAL=?, GRADE=?, CE=?, gp=?, REMARK=?, session=? where"
+					+ " matric='"+matric+"' and course='"+course+"'";
+
+                pst=conn.prepareStatement(updateScore);
+              pst.setString(1, semester);
+              pst.setInt(2, ca);
+              pst.setInt(3, exam);
+              pst.setInt(4, total);
+              pst.setString(5, grade);
+              pst.setInt(6, ce);
+              pst.setInt(7, gp);
+              pst.setString(8, remark);
+			  pst.setString(9, session);
+			  pst.execute();
+        rs.close();
+        pst.close();
+        }catch(Exception e){
+        JOptionPane.showMessageDialog(null, "Score Update error");
+        }        
+           }else if (!rs.next()){ 
+			   try{
+            String insertScore = "insert into scores (MATRIC, NAME, DEPARTMENT, LEVEL,"
+					+ " COURSE, CU, SEMESTER, CA, EXAM, TOTAL, GRADE, CE, gp, REMARK, session) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                pst=conn.prepareStatement(insertScore);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept );
+                pst.setString(4, null );
+                pst.setString(5, course);
+                pst.setString(6, Integer.toString(cu));
+                pst.setString(7, semester);
+                pst.setString(8,Integer.toString(ca) );
+                pst.setString(9, Integer.toString(exam)  );
+                pst.setString(10, Integer.toString(total) );
+                pst.setString(11,   grade );
+                pst.setString(12,   Integer.toString(ce) );
+                pst.setString(13,  Integer.toString(gp) );
+                pst.setString(14,  remark  );
+				pst.setString(15,  session  );
+                pst.execute();
+        rs.close();
+        pst.close();
+        }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+           }
+	   }catch(Exception e){JOptionPane.showMessageDialog(null, "Score insertion erro1");}
+	   
+	   //inserting the result into the course database
+       try{
+		   String sql= "select* from '"+course+"' where matric=? ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+			   try{
+            String updateScore = "update '"+course+"' set  CA=?, "
+					+ "EXAM=?, TOTAL=?, GRADE=?, gp=?, REMARK=?,"
+					+ " session=? where matric='"+matric+"'";
+			pst=conn.prepareStatement(updateScore);
+              
+              pst.setInt(1, ca);
+              pst.setInt(2, exam);
+              pst.setInt(3, total);
+              pst.setString(4, grade);
+              pst.setInt(5, gp);
+              pst.setString(6, remark);
+			  pst.setString(7, session);
+			  pst.execute();
+			  rs.close();
+			  pst.close();
+			   } catch(Exception e){JOptionPane.showMessageDialog(null, "coures score insertion error1");}
+		   }else if (!rs.next()){
+			   try{
+				   String insertScore = "insert into '"+course+"' (MATRIC, NAME, DEPARTMENT, "
+						   + "  CA, EXAM, TOTAL, GRADE,  gp, REMARK, session) VALUES (?, ?, ?, ?, "
+						   + "?, ?, ?, ?, ?, ?)";
+
+                pst=conn.prepareStatement(insertScore);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept );
+                pst.setString(4,Integer.toString(ca) );
+                pst.setString(5, Integer.toString(exam)  );
+                pst.setString(6, Integer.toString(total) );
+                pst.setString(7,   grade );
+                pst.setString(8,  Integer.toString(gp) );
+                pst.setString(9,  remark  );
+				pst.setString(10,  session  );
+                pst.execute();
+				rs.close();
+				pst.close();
+			   }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }
+	   }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+	   
+	  
+	   
+        String llev=null ; 
+       //initialising the arrayList that will hold gp, credit unit, and gradescore from the db
+   String tc;
+   String tr;
+        ArrayList<String> ar=new ArrayList<>();
+        ArrayList<String> artc=new ArrayList<>();
+        ArrayList<String> artr=new ArrayList<>();
+        ArrayList<String> arNSS=new ArrayList<>();
+        
+        // getting all the grade point, credit unit and credit earned of the current student
+        try{
+    
+            String sql= "select* from scores where matric=? and semester='"+semester+"'";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+          
+           while(rs.next()){
+              result=rs.getString("gp") ;
+              tr=rs.getString("CU");
+              tc=rs.getString("CE");
+               ar.add(result);
+               artc.add(tc);
+               artr.add(tr);
+           }
+           rs.close();
+           pst.close();
+         }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        } 
+        
+        
+        // getting the number of semester spent
+        try{
+            String sql="select distinct semester from scores where matric=? ";
+            pst=conn.prepareStatement(sql);
+             pst.setString(1, matric);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                arNSS.add(rs.getString("SEMESTER"));
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        
+        
+            String[] stud = ar.toArray(new String[ar.size()]);
+            String[] stc = artc.toArray(new String[artc.size()]);
+            String[] str = artr.toArray(new String[artr.size()]);
+            String[] stNSS = arNSS.toArray(new String[arNSS.size()]);
+            
+            int NSS=arNSS.size();
+            
+         
+            // setting Student level
+            if(NSS<=2){
+                llev="1";
+            }else if(NSS==3 || NSS==4){
+                llev="2";
+            }else if(NSS==5 || NSS==6){
+                llev="3";
+            }else if(NSS>=7){
+                llev="4";
+            }
+			// inserting number number of semester spent into the department's student db table;
+            try{
+				String lev="STUDENTS";
+            String updateScore = "update '"+dept+""+lev+"' set  nss=? where matric='"+matric+"'";
+			pst=conn.prepareStatement(updateScore);
+			pst.setInt(1, NSS);
+			pst.execute();
+			pst.close();
+			   } catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+			try{
+				String updateScore = "update student set  nss=? where matric='"+matric+"'";
+			pst=conn.prepareStatement(updateScore);
+			pst.setInt(1, NSS);
+			pst.execute();
+			pst.close();
+			   } catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+			
+			
+             // inserting the score into the departments' level db table
+	   try{
+       String sql= "select* from '"+dept+""+lev+"' where matric=? ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+			   try{
+            String updateScore = "update '"+dept+""+lev+"' set  nss=?,  '"+course+"' =? "
+					+ "where matric='"+matric+"'";
+			pst=conn.prepareStatement(updateScore);
+			pst.setInt(1, NSS);
+			pst.setInt(2, ca+exam);
+			pst.execute();
+			pst.close();
+			   } catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }else if (!rs.next()){
+			   try{
+				   String insertScore = "insert into '"+dept+""+lev+"' (nss, course) "
+					+ "VALUES (?, ?) where matric='"+matric+"' ";
+				pst=conn.prepareStatement(insertScore);
+                pst.setInt(1, NSS);
+				pst.setInt(2, ca+exam);
+                pst.execute();
+				rs.close();
+				pst.close();
+			   }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }
+	   }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+            
+	   
+            int size = ar.size();
+           
+            for(int i=0; i<size; i++){
+                tGp+=Integer.parseInt(stud[i]);
+                tce+=Integer.parseInt(stc[i]);
+                tcr+=Integer.parseInt(str[i]);
+            }
+           
+            
+            // dividing the total gradepoint by the total credit registered 
+            BigDecimal gpee= new BigDecimal(Integer.toString(tGp));
+			BigDecimal gpr= new BigDecimal(Integer.toString(tcr));
+			double ff = gpee.doubleValue()/gpr.doubleValue();
+			//BigDecimal gpar=gpee.divide(gpr);
+			BigDecimal gpar=new BigDecimal(Double.toString(ff));
+			
+			
+            
+            // rounding the value of the above division to two decimal places
+        
+         gpar=round(gpar);
+		gpa=gpar.toString();
+		
+           
+           
+   try{
+            String insertScore = "update scores set LEVEL=? where matric=? and session='"+session+"'  ";
+                
+                pst=conn.prepareStatement(insertScore);
+                pst.setString(1, llev);
+                pst.setString(2, matric);
+                pst.execute();
+                            
+        rs.close();
+        pst.close();
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        
+           } 
+   
+   // getting carry-over courses
+	ArrayList <String> arco= new ArrayList<>();
+	arco.add("rpt:");
+	try{
+		String ps="Fail";
+		String sql="select course from scores where remark='"+ps+"' "
+				+ "and matric='"+matric+"' ";
+		pst=conn.prepareStatement(sql);
+		rs=pst.executeQuery();
+		while(rs.next()){
+			arco.add(rs.getString("COURSE"));
+		}
+		pst.close();		
+   }catch(Exception e){}
+	
+	String []aco=arco.toArray(new String[arco.size()]);
+		String co=aco[0];
+		String cod="";
+		if (aco.length==1){
+			co="Pass";
+		}else{
+			for (int x=1; x<aco.length; x++){
+			 co+=aco[x]+",";
+		}
+		}
+       
+		
+		//inserting tce, tcr, tgp and gpa into the department's table       
+         try{
+            String sqll = "update '"+dept+"' set TCR1=?, TCE1=?, tgp1=?, gpa1=?  WHERE matric='"+matric+"'";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){JOptionPane.showMessageDialog(null, "GPerror1");}  
+            
+                   
+      // inserting tcr, tce, tgp and gpa into the GP table      
+           
+      try{
+    String sql="select * from gp where matric=?  and semester='"+semester+"' ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+            String sqll = "update gp set TCR=?, TCE=?, tgp=?, gpa=?  WHERE matric='"+matric+"'"
+					+ " and semester='"+semester+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){JOptionPane.showMessageDialog(null, "GPerror2");}
+               }  
+        else if(!rs.next()){
+                try{
+            String sqll = "insert into gp (MATRIC, NAME, DEPARTMENT,   SEMESTER,  TCR, TCE, TGP,"
+					+ " gpa, session) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+                pst=conn.prepareStatement(sqll);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept );
+                pst.setString(4, semester);
+				pst.setString(9, session);
+                pst.setInt(5, tcr);
+                pst.setInt(6, tce);
+                 pst.setInt(7, tGp);
+                pst.setString(8, gpa);
+                
+                
+                pst.execute();
+                            
+        
+        }    
+         catch(Exception e){
+        JOptionPane.showMessageDialog(null, e);
+        }
+          
+           }
+ rs.close();
+ pst.close();
+      }catch(Exception e){
+          
+          JOptionPane.showMessageDialog(null, e);
+
+      }
+      
+      
+      
+      //initialising arrayLists that will hold all gpa, tce, tcr and tgp from the db
+        ArrayList<Double> arGp=new ArrayList<>();
+        ArrayList<String> arctce=new ArrayList<>();
+         ArrayList<Double> arctcr=new ArrayList<>();
+          ArrayList<Double> arctgp=new ArrayList<>();
+       try{
+    String sql="select * from gp where matric=? ";
+           pst=conn.prepareStatement(sql);
+           pst.setString(1, matric);
+           rs=pst.executeQuery();
+           while(rs.next()){
+              arGp.add(rs.getDouble("GPA"));
+               arctce.add(rs.getString("TCE"));
+               arctcr.add(rs.getDouble("TCR"));
+               arctgp.add(rs.getDouble("TGP"));
+                             
+           }
+       }catch(Exception e){
+           
+       }
+        
+        Double[] stGp = arctgp.toArray(new Double[arctgp.size()]);
+         int stGpSize = arctgp.size();
+		 Double[] st = arctcr.toArray(new Double[arctcr.size()]);
+         int stSize = arctcr.size();
+         
+         if(stGpSize==1){
+           level1GP=stGp[0].toString();
+         }
+         else if(stGpSize==2){
+        
+         double f1=stGp[0];
+         double f=stGp[1];
+         double fsum=f1+f;
+         BigDecimal lev1=new BigDecimal(Double.toString(fsum/(st[0]+st[1])));
+		 lev1=round(lev1);
+         level1GP=lev1.toString();
+         }
+         
+         if(stGpSize==3){
+            double fi=stGp[2];
+             level2GP=Double.toString(fi); 
+         }
+         else  if(stGpSize==4){
+         double h=stGp[2];
+         double h1=stGp[3];
+         double hsum=h1+h;
+         BigDecimal lev1=new BigDecimal(Double.toString(hsum/(st[2]+st[3])));
+		 lev1=round(lev1);
+         level2GP=lev1.toString();
+         }
+         
+         if(stGpSize==5){
+            // double fi=stGp[4];
+             level3GP=stGp[4].toString();
+         }
+          else  if(stGpSize==6){
+                
+        double j=stGp[4];
+        double j1=stGp[5];
+        double jsum=j1+j;
+        BigDecimal lev1=new BigDecimal(Double.toString(jsum/(st[4]+st[5])));
+		 lev1=round(lev1);
+         level3GP=lev1.toString();
+                
+         }
+
+         if(stGpSize==7){
+             //double fi=stGp[6];
+             level4GP=stGp[6].toString();
+         }
+         else  if(stGpSize==8){
+       try{
+        double k=stGp[6];
+         double k1=stGp[7];
+         double ksum=k1+k;
+         BigDecimal lev1=new BigDecimal(Double.toString(ksum/(st[6]+st[7])));
+		 lev1=round(lev1);
+         level4GP=lev1.toString();
+         
+         }catch(Exception e){}
+        
+  } 
+         
+         String[] stTce = arctce.toArray(new String[arctce.size()]);
+         int stTceSize = arctce.size();
+         
+         Double[] stTcr = arctcr.toArray(new Double[arctcr.size()]);
+         int stTcrSize = arctcr.size();
+         
+         Double [] stTgp = arctgp.toArray(new Double[arctgp.size()]);
+         int stTgpSize = arctgp.size();
+         
+         int ctce = 0;
+         int ctcr = 0;
+         double ctgp= 0;
+          double l = 0;
+         
+         try{
+             
+         for(int i=0; i<stTceSize; i++){
+             ctce += Integer.parseInt(stTce[i]);
+         }
+         for(int i=0; i<stTcrSize; i++){
+             ctcr += stTcr[i];
+         }
+         
+         for(int i=0; i<stTgpSize; i++){
+             ctgp += stTgp[i];
+         }
+         
+         }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "cgpa addition error"); 
+         }
+		 
+//getting the cgpa by rounding it to two deecimal places
+        double cgpe=ctgp/ctcr;
+        BigDecimal cgps=new BigDecimal(Double.toString(cgpe));
+		 cgps=round(cgps);
+        String cgpa=cgps.toString();
+		
+		double cdd=cgps.doubleValue();
+ // generating class of degree        
+        try{
+			 if(cdd>4.49){
+			 cod="FIRST	CLASS";
+		 }else if(cdd>3.49 && cdd<4.50){
+			 cod="SECOND CLASS UPPER";
+		 }else if(cdd>2.49 && cdd<3.50){
+			 cod="SECOND CLASS LOWER";
+		 }else if(cdd>1.49 && cdd<2.50){
+			 cod="THIRD CLASS";
+		 }else if(cdd<1.50){
+			 cod="PASS DEGREE";
+		 }
+		}catch(Exception e){ JOptionPane.showMessageDialog(null, "summary computation error");}
+         
+         
+		 try{
+			String s="summary";
+            String sqll = "update '"+dept+""+s+"' set remark=?, cod=? WHERE matric='"+matric+"' ";
+			pst=conn.prepareStatement(sqll);
+            pst.setString(1, remark);
+            pst.setString(2, cod );
+			pst.execute();
+		 }catch(Exception e){JOptionPane.showMessageDialog(null, "summary error");}  
+		 
+       // inserting values INTO the cgpa table  
+       
+       if (stGpSize>=1 && stGpSize<=2){
+		  
+		   //inserting tce, tcr, tgp and gpa into the department's table       
+         try{
+            String sqll = "update '"+dept+"' set TCR1=?, TCE1=?, tgp1=?, gpa1=?  WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){JOptionPane.showMessageDialog(null, "GPerror11");} 
+		 
+           try{
+             String sql="select * from cgpa where matric=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRIC=?, CTCR=?, CTCE=?, ctgp=?, CGPA=?"
+					 + "   WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                 pst.execute();}catch(Exception e){JOptionPane.showMessageDialog(null, "cgpaerror");}
+                
+				try{
+             String sqlu="update level1 set  MATRIC=?, name=?,TCR=?, TCE=?,"
+					 + " tgp=?, GPA=?  WHERE MATRIC='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setDouble(5, ctgp);
+                pst.setString(6, level1GP);
+                pst.execute();
+                                     
+                }catch(Exception e){JOptionPane.showMessageDialog(null, "level1 erro1");}
+		   }else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRIC, CTCR, CTCE, CTGP, CGPA)  VALUES"
+					 + " ( ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                pst.execute();
+				}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+                try{
+             String sqli="insert into level1  (matric, name, department,"
+					 + " program, tcr, tce, tgp, gpa ) VALUES (?, ?, ?, ?, "
+					 + "?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setDouble(7, ctgp);
+                pst.setString(8, level1GP );
+                pst.execute();
+        }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+           }
+         }catch(Exception e){JOptionPane.showMessageDialog(null, "3");}
+       }else if (stGpSize>=3 && stGpSize<=4){
+		   //inserting tce, tcr, tgp and gpa into the department's table       
+         try{
+            String sqll = "update '"+dept+"' set TCR2=?, TCE2=?, tgp2=?, gpa2=?  "
+					+ "WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){
+					String c = "TCR2";
+					String cc = "TCE2";
+					String ccc = "TGP2";
+					String cccc = "GPA2";
+					try{
+						String sql="alter table '"+dept+"' add '"+c+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+ccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+				String sqll = "update '"+dept+"' set TCR2=?, TCE2=?, tgp2=?, gpa2=?  "
+					+ "WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception rr){JOptionPane.showMessageDialog(null, "dept input error");}
+				} 
+				
+           try{
+             String sql="select * from cgpa where matric=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRIC=?, CTCR=?, CTCE=?, ctgp=?, CGPA=?"
+					 + "   WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                 pst.execute();}catch(Exception e){JOptionPane.showMessageDialog(null, "cgpa error");}
+                
+				try{
+             String sqlu="update level2 set  MATRIC=?, name=?,TCR=?, TCE=?,"
+					 + " tgp=?, GPA=?  WHERE MATRIC='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setDouble(5, ctgp);
+                pst.setString(6, level1GP);
+                pst.execute();
+                                     
+                }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRIC, CTCR, CTCE, CTGP, CGPA)  VALUES"
+					 + " ( ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                pst.execute();
+				}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+				
+				try{
+             String sqli="insert into level2  (matric, name, department, program, "
+					 + "tcr, tce, tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setDouble(7, ctgp);
+                pst.setString(8, level2GP );
+                pst.execute();
+              
+        }    
+         catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+           }
+         }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+       }
+       else if (stGpSize>=5 && stGpSize<=6){
+		   
+		   //inserting tce, tcr, tgp and gpa into the department's table       
+         try{
+            String sqll = "update '"+dept+"' set TCR3=?, TCE3=?, tgp3=?, gpa3=?  "
+					+ "WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){
+					String c = "TCR3";
+					String cc = "TCE3";
+					String ccc = "TGP3";
+					String cccc = "GPA3";
+					try{
+					
+						String sql="alter table '"+dept+"' add '"+c+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+ccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					
+					try{
+				String sqll = "update '"+dept+"' set TCR3=?, TCE3=?, tgp3=?, gpa3=?  "
+					+ "WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception rr){JOptionPane.showMessageDialog(null, rr);}
+				} 
+		 
+          try{
+             String sql="select * from cgpa where matric=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRIC=?, CTCR=?, CTCE=?, ctgp=?, CGPA=?"
+					 + "   WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                 pst.execute();}catch(Exception e){JOptionPane.showMessageDialog(null, "cgpaerror");}
+                
+				try{
+             String sqlu="update level3 set  MATRIC=?, name=?,TCR=?, TCE=?,"
+					 + " tgp=?, GPA=?  WHERE MATRIC='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setDouble(5, ctgp);
+                pst.setString(6, level1GP);
+                pst.execute();
+                                     
+                }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRIC, CTCR, CTCE, CTGP, CGPA)  VALUES"
+					 + " ( ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                pst.execute();
+				}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+                try{
+             String sqli="insert into level3  (matric, name, department, program, tcr,"
+					 + " tce, tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(3, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setDouble(7, ctgp);
+                pst.setString(8, level3GP );
+                pst.execute();
+				}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+           }
+         }catch(Exception e){JOptionPane.showMessageDialog(null, "3");}
+       }
+       else if (stGpSize>=7 && stGpSize<=8){
+		    
+		   //inserting tce, tcr, tgp and gpa into the department's table       
+         try{
+            String sqll = "update '"+dept+"' set TCR4=?, TCE4=?, tgp4=?, gpa4=?  "
+					+ "WHERE matric='"+matric+"'";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception e){
+					String c = "TCR4";
+					String cc = "TCE4";
+					String ccc = "TGP4";
+					String cccc = "GPA4";
+					try{
+					
+						String sql="alter table '"+dept+"' add '"+c+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+ccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					try{
+						String sql="alter table '"+dept+"' add '"+cccc+"' ";
+						pst=conn.prepareStatement(sql);
+						pst.executeUpdate();
+					}catch(Exception r){JOptionPane.showMessageDialog(null, "error in "
+							+ "adding/altering tcr, tce, tgp, and gpa to the department's table");}
+					
+					try{
+				String sqll = "update '"+dept+"' set TCR4=?, TCE4=?, tgp4=?, gpa4=?  "
+					+ "WHERE matric='"+matric+"' ";
+				pst=conn.prepareStatement(sqll);
+                pst.setInt(1, tcr);
+                pst.setInt(2, tce);
+                pst.setString(4, gpa);
+                pst.setInt(3, tGp);
+                                    
+                pst.execute();            
+                }catch(Exception rr){JOptionPane.showMessageDialog(null, rr);}
+				} 
+		 
+         try{
+             String sql="select * from cgpa where matric=? ";
+           pst=conn.prepareStatement(sql);
+            pst.setString(1, matric);
+           rs=pst.executeQuery();
+           if(rs.next()){
+                try{
+             String sqlu="update cgpa set  MATRIC=?, CTCR=?, CTCE=?, ctgp=?, CGPA=?"
+					 + "   WHERE matric='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                 pst.execute();}catch(Exception e){JOptionPane.showMessageDialog(null, "cgpaerror");}
+                
+				try{
+             String sqlu="update level4 set  MATRIC=?, name=?,TCR=?, TCE=?,"
+					 + " tgp=?, GPA=?  WHERE MATRIC='"+matric+"' ";
+                pst=conn.prepareStatement(sqlu);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setInt(3, ctcr);
+                pst.setInt(4, ctce);
+                pst.setDouble(5, ctgp);
+                pst.setString(6, level1GP);
+                pst.execute();
+                                     
+                }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+		   }else if(!rs.next()){
+                try{
+             String sqli="insert into cgpa  (MATRIC, CTCR, CTCE, CTGP, CGPA)  VALUES"
+					 + " ( ?, ?, ?, ?, ?) ";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setInt(2, ctcr);
+                pst.setInt(3, ctce);
+                pst.setDouble(4, ctgp);
+                pst.setString(5, cgpa);
+                pst.execute();
+				}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+                try{
+             String sqli="insert into level4  (matric, name, department, program, tcr, tce, "
+					 + "tgp, gpa ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                pst=conn.prepareStatement(sqli);
+                pst.setString(1, matric);
+                pst.setString(2, name );
+                pst.setString(3, dept);
+                //pst.setString(4, prog);
+                pst.setInt(5, ctcr);
+                pst.setInt(6, ctce);
+                pst.setDouble(7, ctgp);
+                pst.setString(8, level4GP );
+                pst.execute();
+        }    
+         catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+           }
+         }catch(Exception e){JOptionPane.showMessageDialog(null, "3");}
+       }
+   }
+    
+public void pdf(){
+         String header="First Header";
+        String header1="Second Header in a New Paragraph";
+        chooser.setDialogTitle("Save To");
+        Document doc;
+
+        if(chooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+        //pdf creation
+        try {
+                doc = new Document(PageSize.A4.rotate() );
+                PdfWriter.getInstance(doc, new FileOutputStream(new File(chooser.getSelectedFile().getAbsolutePath()+".pdf")));
+                doc.open();
+                Paragraph rHead = new Paragraph(header1, new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD));
+                rHead.setAlignment(Element.ALIGN_CENTER);
+                Paragraph rHead1=new Paragraph(header, new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD));
+                rHead1.setAlignment(Element.ALIGN_CENTER);
+                doc.add(rHead);
+                doc.add(rHead1);
+                doc.add(new Paragraph("                               "));
+               
+                PdfPTable pdfTable = new PdfPTable(resultTable.getColumnCount());
+  
+                  // pdfTable.setHeaderRows(1);
+                int n=resultTable.getColumnCount();  
+                int[]x =new int[n];
+                int y=3;
+                int o=1;
+                for (int j = 0; j <n ; j++){
+                x[j]=y;
+                
+                //setting some selected column width
+                x[n-5]=o;
+                x[n-4]=o;
+                x[n-3]=o;
+                x[n-2]=o;
+                x[n-6]=o;
+                x[n-7]=o;
+                x[n-9]=o;
+                x[n-11]=o;
+                x[n-1]=2;
+                
+               pdfTable.setWidths(x);
+                
+                PdfPCell cell = new PdfPCell(new Paragraph(resultTable.getColumnName(j), new Font(Font.FontFamily.TIMES_ROMAN, 9)));
+                cell.setBackgroundColor(new GrayColor(0.7f));
+               
+            
+                pdfTable.addCell(cell);
+ 
+                }
+            
+         for (int i = 0; i < resultTable.getRowCount(); i++) {
+            for (int j = 0; j < resultTable.getColumnCount(); j++) {
+                pdfTable.addCell( getCellValue(i,j).toString());
+                
+                
+                //pdfTable.addCell(resultTable.getModel().getValueAt(i, j).toString());
+            }
+        }
+         
+        doc.add(pdfTable);
+    doc.close();
+            JOptionPane.showMessageDialog(null, "Report Saved...");
+    
+        } catch (DocumentException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+
+        }   catch (FileNotFoundException ex) {
+                Logger.getLogger(MainCal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.println("No Selection");
+        }
+        
+    }
+    
+public void excel(){
+    
+chooser.setDialogTitle("Specify your Saving Location");
+if(chooser.showSaveDialog(this)==JFileChooser.APPROVE_OPTION){
+    try{
+        Workbook wb = new HSSFWorkbook();
+    CreationHelper createhelper = wb.getCreationHelper();
+    Sheet sheet = wb.createSheet("new sheet");
+    Row row = null;
+    Cell cell = null;
+    try{ 
+       for (int j = 0; j < resultTable.getColumnCount(); j++){
+      // cell.setCellValue(resultTable.getColumnName(j));
+                
+                
+ 
+                }
+                }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+               
+    for (int i=0;i<resultTable.getRowCount();i++) {
+        row = sheet.createRow(i);
+        for (int j=0;j<resultTable.getColumnCount();j++) {
+             
+            cell = row.createCell(j);
+            cell.setCellValue( getCellValue(i,j).toString());
+        }
+    }
+     FileOutputStream out = new FileOutputStream(new File ( chooser.getSelectedFile().getAbsolutePath()+".xls"));
+    wb.write(out);
+    out.close();
+JOptionPane.showMessageDialog(null, "Saved...");
+        }catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+        }     
+
+    }
+ 
+    
+public void fillCourse(){
+	try{
+			 String sql="select* from courses where semester='"+semester+"' and COURSE_LECTURER='"+lecturer+"' ";
+			 pst=conn.prepareStatement(sql);
+			rs=pst.executeQuery();
+			while(rs.next()){
+				scoreCourse.addItem(rs.getString("CODE"));
+			}
+		}catch(Exception e){
+			JOptionPane.showMessageDialog(null, e);
+		}
+}
+
+public void hd(){
+	String ss="SUMMARY";
+	String s="students";
+	try{
+		String sql=" select s.matric, s.name, ss.cod from '"+dept+""+s+"'"
+				+ " s left join '"+dept+""+ss+"' ss on s.matric=ss.matric";
+		pst=conn.prepareStatement(sql);
+		rs=pst.executeQuery();
+		hiddenTable.setModel(DbUtils.resultSetToTableModel(rs));
+		}catch(Exception e){JOptionPane.showMessageDialog(null, e);}
+	
+}
+private void word(String header1, String header2, String header3, String header4,String header5, int cCount, int rCount){
+        
+         XWPFParagraph paragraph1= d.createParagraph();
+         XWPFParagraph paragraph2= d.createParagraph();
+         XWPFParagraph paragraph3= d.createParagraph();
+         XWPFParagraph paragraph4= d.createParagraph();
+		 XWPFParagraph paragraph5= d.createParagraph();
+         
+    paragraph1.setAlignment(ParagraphAlignment.CENTER);
+    paragraph2.setAlignment(ParagraphAlignment.CENTER);
+    paragraph3.setAlignment(ParagraphAlignment.CENTER);
+    paragraph4.setAlignment(ParagraphAlignment.CENTER);
+	paragraph5.setAlignment(ParagraphAlignment.LEFT);
+    
+    XWPFRun run= paragraph1.createRun();
+    XWPFRun run1= paragraph2.createRun();
+    XWPFRun run2= paragraph3.createRun();
+    XWPFRun run3= paragraph4.createRun();
+    XWPFRun run4= paragraph5.createRun();
+    XWPFRun run5= paragraph1.createRun();
+    XWPFRun run6= paragraph1.createRun();
+    XWPFRun run7= paragraph1.createRun();
+    
+    run.setText(header1);
+    run.setFontSize(18);
+    run1.setText(header2);
+    run1.setFontSize(16);
+    run2.setText(header3);
+    run2.setFontSize(14);
+    run3.setText(header4);
+     run3.setFontSize(12);
+	 run4.setText(header5);
+     run4.setFontSize(12);
+    // Creating Table  
+	XWPFTable tab = d.createTable();
+    tab.setTableAlignment(TableRowAlign.CENTER);
+	XWPFTableRow row = tab.getRow(0); // First row
+	
+    // Columns  
+	cCount= resultTable.getColumnCount();
+	row.getCell(0).setText("S/N");
+                  //row.getCell(1).setText(resultTable.getColumnName(0));
+				  XWPFTableCell [] c = new XWPFTableCell[cCount];
+				  try{
+					  for(int i=0; i<cCount; i++){
+                  c[i] = row.addNewTableCell();
+                  c[i].setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+                  c[i].setText(resultTable.getColumnName(i));
+              }
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+                  rCount=resultTable.getRowCount();
+               XWPFTableRow[] rows =new XWPFTableRow[rCount];
+              for(int i=0;i<rows.length;i++){
+                rows[i]=tab.createRow();
+                rows[i].getCell(0).setText(Integer.toString(i+1));
+                for(int j=0; j<c.length ;j++){
+					rows[i].getCell(j+1).setText(getCellValue(i,j).toString());
+                }
+              }
+        tab.setWidth("100%");
+		
+		XWPFTable tab1 = d.createTable();
+    tab1.setTableAlignment(TableRowAlign.CENTER);
+	XWPFTableRow row1 = tab1.getRow(0); // First row
+                 
+    // Columns  
+	cCount= hiddenTable.getColumnCount();
+	row1.getCell(0).setText("S/N");
+                  //row.getCell(1).setText(resultTable.getColumnName(0));
+				  XWPFTableCell [] c1 = new XWPFTableCell[cCount];
+				  try{
+					  for(int i=0; i<cCount; i++){
+                  c1[i] = row1.addNewTableCell();
+                  c1[i].setVerticalAlignment(XWPFTableCell.XWPFVertAlign.CENTER);
+                  c1[i].setText(hiddenTable.getColumnName(i));
+              }
+                }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, e);
+                }
+                  rCount=hiddenTable.getRowCount();
+               XWPFTableRow[] rows1 =new XWPFTableRow[rCount];
+              for(int i=0;i<rows1.length;i++){
+                rows1[i]=tab1.createRow();
+                rows1[i].getCell(0).setText(Integer.toString(i+1));
+                for(int j=0; j<c1.length ;j++){
+					rows1[i].getCell(j+1).setText(getCellValue(i,j).toString());
+                }
+              }
+        tab1.setWidth("100%");
+    }
+public Object getCellValue(int i, int j){
+     Object result = resultTable.getModel().getValueAt(i, j);
+    String val;
+        
+        if( result == null) {
+        val="";
+    } else {
+       val = result.toString();
+    }
+       
+       
+       return val;
+}   
+   
+public void updateCourseTable(){
+                try{
+            String sql = "SELECT * FROM courses";
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            dialogTable.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+public  void updateStudentTable(){
+        try{
+            String sql = "SELECT * FROM student";
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            dialogTable.setModel(DbUtils.resultSetToTableModel(rs));
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    } 
+    
+public   void fillData(File file)  { 
+         int index=-1;
+         HSSFWorkbook workbook = null; 
+        try { 
+               try { 
+                       FileInputStream inputStream = new FileInputStream (file);
+                        workbook = new HSSFWorkbook(inputStream);
+                    } 
+               catch (IOException ex) 
+                    { 
+                         Logger.getLogger(MainCal.class. getName()).log(Level.SEVERE, null, ex);
+                     } 
+
+                       String[] strs=new String[workbook.getNumberOfSheets()];
+                      //get all sheet names from selected workbook
+                        for (int i = 0; i < strs.length; i++) {
+                             strs[i]= workbook.getSheetName(i); }
+                        JFrame frame = new JFrame("Input Dialog");
+                      
+                        String selectedsheet = (String) JOptionPane.showInputDialog(
+                           frame, "Which worksheet you want to import ?", "Select Worksheet",
+                          JOptionPane.QUESTION_MESSAGE, null, strs, strs[0]);
+                
+                       if (selectedsheet!=null) {
+                            for (int i = 0; i < strs.length; i++)
+                              {
+                                 if (workbook.getSheetName(i).equalsIgnoreCase(selectedsheet))
+                                 index=i; }
+                            HSSFSheet sheet = workbook.getSheetAt(index);
+                            HSSFRow row=sheet.getRow(0);
+                        
+                           headers.clear();
+                           for (int i = 0; i < row.getLastCellNum(); i++)
+                          {
+                             HSSFCell cell1 = row.getCell(i);
+                             headers.add(cell1.toString());
+                          }
+                        
+                          vectordata.clear();
+                          for (int j = 1; j < sheet.getLastRowNum() + 1; j++)
+                          {
+                             Vector d = new Vector();
+                             row=sheet.getRow(j);
+                             int noofrows=row.getLastCellNum();
+                             for (int i = 0; i < noofrows; i++)
+                             {    //To handle empty excel cells 
+                                   HSSFCell cell;
+                                 cell = row.getCell(i, org.apache.poi.ss.usermodel.Row.MissingCellPolicy.CREATE_NULL_AS_BLANK );
+                                  
+                                   d.add(cell.toString());
+                             }
+                            d.add("\n");
+                            vectordata.add(d);
+                          }
+                     }
+                    else { return; }
+        }
+      catch (Exception e) { e.printStackTrace(); } }
+public void sessionNow(){
+	nbf.setMinimumFractionDigits(2);
+nbf.setMaximumFractionDigits(2);
+	DateTimeFormatter ff = DateTimeFormatter.ofPattern("YY");
+		DateTimeFormatter hh = DateTimeFormatter.ofPattern("YYYY");
+		LocalDate noww=LocalDate.now();
+		LocalDate later=LocalDate.now().plusYears(1);		
+		String la = later.format(ff);
+		String nww= noww.format(hh);
+		session = nww+"/"+la;
+}
+    
+    
+public  final void clear(){
+
+
+                scoreCourse.setSelectedItem(null);
+                cred=(null);
+               // sessionCombo.setSelectedItem(null);
+
+    }
+public  void clear1(){
+                txtmat.setText(null);
+                lblName.setText(null);
+               // lblDept.setText(null);
+                txtca.setText(null);
+                txtexam.setText(null);
+  
+  }
+   
+public void Update_Table(String courss, String sesss){
+        resultTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        
+        // viewing all record in the scores table
+        if(courss.equalsIgnoreCase("All")&& sesss.equalsIgnoreCase("All")){
+            try{
+        String sql= "select * from scores "; 
+        pst=conn.prepareStatement(sql);
+        rs=pst.executeQuery();        
+        resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+                rs.close();
+                pst.close();
+        
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null, "error Updating Table");
+        }
+        }
+        
+        // viewing only all scores from all courses in the same session
+        else if(courss.equalsIgnoreCase("All")){
+            try{
+        String sql= "select * from scores where semester=?"; 
+        pst=conn.prepareStatement(sql);
+        pst.setString(1, sesss);
+        rs=pst.executeQuery();        
+        resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+                rs.close();
+                pst.close();
+        
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null, "eerror Updating Table");
+        }
+            
+        }else if(sesss.equalsIgnoreCase("All")){
+            try{
+        String sql= "select * from scores where course=? "; 
+        pst=conn.prepareStatement(sql);
+        pst.setString(1, courss);
+        rs=pst.executeQuery();        
+        resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+                rs.close();
+                pst.close();
+        
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null, "error Updating Table");
+        }
+        }
+        else{
+            try{
+        String sql= "select * from scores where course=? and semester=?"; 
+        pst=conn.prepareStatement(sql);
+        pst.setString(1, courss);
+        pst.setString(2, sesss);
+        rs=pst.executeQuery();        
+        resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+                rs.close();
+                pst.close();
+        
+        }catch(SQLException e){
+        JOptionPane.showMessageDialog(null, "error Updating Table");
+        }
+        }
+        
+    }
+  
+public  void viewGp(){
+      try{
+            String sql="select * from gp";
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            resultTable.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+            pst.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+}
+
+
+}
